@@ -3,6 +3,7 @@ const myMessage = document.getElementById("my-message");
 const sendButton = document.getElementById("send-button");
 const chatBox = document.getElementById("chat");
 const serverURL = `https://it3049c-chat-application.herokuapp.com/messages`;
+const saveButton = document.getElementById("save-button");
 
 sendButton.addEventListener("click", function(sendButtonClickEvent) {
   sendButtonClickEvent.preventDefault();
@@ -64,19 +65,37 @@ function sendMessages(username, text) {
 }
 
 async function updateMessages() {
-  //fetch messages
-  const messages = await fetchMessages();
+    //fetch messages
+    const messages = await fetchMessages();
 
-  //loop messages. Inside the loop
+    //loop messages. Inside the loop
     //get each message
     //format the message
     //add the message to the chatbox
-  let formattedMessages = "";
-  messages.forEach(message => {
-      formattedMessages += formatMessage(message, nameInput.value);
-  });
-  chatBox.innerHTML = formattedMessages;
-  const MILLISECONDS_IN_TEN_SECONDS = 10000;
-  setInterval(updateMessages,  MILLISECONDS_IN_TEN_SECONDS);
+    let formattedMessages = "";
+    messages.forEach(message => {
+        formattedMessages += formatMessage(message, nameInput.value);
+    });
+    chatBox.innerHTML = formattedMessages;
+  
+    const MILLISECONDS_IN_TEN_SECONDS = 10000;
+    setInterval(updateMessages,  MILLISECONDS_IN_TEN_SECONDS);
 }
+
+//disable message input until name is provided
+//have a save button for username
+//modify saved username
+saveButton.addEventListener("click", function (saveButtonClickEvent) {
+    const username = nameInput.value;
+
+    localStorage.setItem("name", username);
+
+    if (localStorage.getItem("name") != "") {
+        myMessage.disabled = false;
+    }
+    else {
+        myMessage.disabled = true;
+    }
+});
+
 
