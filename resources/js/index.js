@@ -3,7 +3,15 @@ const myMessage = document.getElementById("my-message");
 const sendButton = document.getElementById("send-button");
 const chatBox = document.getElementById("chat");
 const serverURL = `https://it3049c-chat-application.herokuapp.com/messages`;
+
 const saveButton = document.getElementById("save-button");
+const darkModeButton = document.getElementById("dark-mode");
+
+const footer = document.getElementById("footer");
+const jumbo = document.getElementById("jumbo");
+const body = document.getElementById("body");
+
+
 
 sendButton.addEventListener("click", function(sendButtonClickEvent) {
   sendButtonClickEvent.preventDefault();
@@ -95,6 +103,24 @@ saveButton.addEventListener("click", function (saveButtonClickEvent) {
     }
     else {
         myMessage.disabled = true;
+    }
+});
+
+darkModeButton.addEventListener("click", function (darkModeButtonClickEvent) {
+    if (localStorage.getItem("mode") != "dark") {
+        localStorage.setItem("mode", "dark");
+        darkModeButton.innerText = "Light Mode";
+        body.style.background = "black";
+        jumbo.style.background = "dimgray";
+        footer.style.background = "dimgray";
+    }
+    else {
+        localStorage.setItem("mode", "light");
+        darkModeButton.innerText = "Dark Mode";
+        body.style.background = "white";
+        jumbo.style.background = "#e9ecef";
+        footer.style.background = "#e9ecef";
+
     }
 });
 
